@@ -1,24 +1,24 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 
-name: 'NotionBlog Action'
-description: 'GitHub Action for NotionBlog'
-author: 'Singee'
+name: "NotionBlog Action"
+description: "GitHub Action for NotionBlog"
+author: "Singee"
 branding:
-  color: 'green'
-  icon: 'package'
+  color: "green"
+  icon: "package"
 inputs:
   version:
-    description: 'NotionBlog version'
-    default: 'latest'
+    description: "NotionBlog version"
+    default: "latest"
     required: false
   args:
-    description: 'Arguments to pass to NotionBlog'
-    default: ''
+    description: "Arguments to pass to NotionBlog"
+    default: "--"
     required: false
   workdir:
-    description: 'Working directory (below repository root)'
-    default: '.'
+    description: "Working directory (below repository root)"
+    default: "."
     required: false
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
