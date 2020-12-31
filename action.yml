@@ -7,6 +7,10 @@ branding:
   color: 'green'
   icon: 'package'
 inputs:
+  version:
+    description: 'NotionBlog version'
+    default: 'latest'
+    required: false
   args:
     description: 'Arguments to pass to NotionBlog'
     default: ''

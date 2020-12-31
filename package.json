@@ -1,0 +1,22 @@
+{
+  "name": "notion-blog-action",
+  "version": "1.0.0",
+  "main": "lib/main.js",
+  "repository": "git@github.com:ImSingee/NotionBlog-Action.git",
+  "author": "Singee <git@singee.me>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && ncc build"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4",
+    "@actions/http-client": "^1.0.8",
+    "@actions/tool-cache": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@vercel/ncc": "^0.26.1",
+    "typescript": "^4.0.3"
+  }
+}
