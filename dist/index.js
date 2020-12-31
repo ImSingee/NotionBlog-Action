@@ -118,9 +118,9 @@ function getNotionBlog(version) {
         if (!release) {
             throw new Error(`Cannot find NotionBlog ${version} release`);
         }
-        const versionWithoutV = version;
+        const versionWithoutV = release.tag_name.replace(/^v/, '');
         core.info(`✅ NotionBlog version found: ${release.tag_name}`);
-        const filename = getFilename();
+        const filename = getFilename(versionWithoutV);
         const downloadUrl = util.format('https://github.com/ImSingee/NotionBlog/releases/download/%s/%s', release.tag_name, filename);
         core.info(`⬇️ Downloading ${downloadUrl}...`);
         const downloadPath = yield tc.downloadTool(downloadUrl);
@@ -134,7 +134,7 @@ function getNotionBlog(version) {
             extPath = yield tc.extractTar(downloadPath);
         }
         core.debug(`Extracted to ${extPath}`);
-        const cachePath = yield tc.cacheDir(extPath, 'notion-blog-action', release.tag_name.replace(/^v/, ''));
+        const cachePath = yield tc.cacheDir(extPath, 'notion-blog-action', versionWithoutV);
         core.debug(`Cached to ${cachePath}`);
         const exePath = path.join(cachePath, osPlat == 'win32' ? 'goreleaser.exe' : 'goreleaser');
         core.debug(`Exe path is ${exePath}`);
@@ -142,11 +142,11 @@ function getNotionBlog(version) {
     });
 }
 exports.getNotionBlog = getNotionBlog;
-const getFilename = () => {
+const getFilename = (versionWithoutV) => {
     const platform = osPlat == 'win32' ? 'Windows' : osPlat == 'darwin' ? 'Darwin' : 'Linux';
     const arch = osArch == 'x64' ? 'x86_64' : 'i386';
     const ext = osPlat == 'win32' ? 'zip' : 'tar.gz';
-    return util.format('NotionBlog_%s_%s.%s', platform, arch, ext);
+    return util.format('NotionBlog_%s_%s_%s.%s', versionWithoutV, platform, arch, ext);
 };
 //# sourceMappingURL=installer.js.map
 

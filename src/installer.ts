@@ -14,10 +14,11 @@ export async function getNotionBlog(version: string): Promise<string> {
   if (!release) {
     throw new Error(`Cannot find NotionBlog ${version} release`);
   }
-  const versionWithoutV = version
+
+  const versionWithoutV = release.tag_name.replace(/^v/, '')
 
   core.info(`✅ NotionBlog version found: ${release.tag_name}`);
-  const filename = getFilename();
+  const filename = getFilename(versionWithoutV);
   const downloadUrl = util.format(
     'https://github.com/ImSingee/NotionBlog/releases/download/%s/%s',
     release.tag_name,
@@ -37,7 +38,7 @@ export async function getNotionBlog(version: string): Promise<string> {
   }
   core.debug(`Extracted to ${extPath}`);
 
-  const cachePath: string = await tc.cacheDir(extPath, 'notion-blog-action', release.tag_name.replace(/^v/, ''));
+  const cachePath: string = await tc.cacheDir(extPath, 'notion-blog-action', versionWithoutV);
   core.debug(`Cached to ${cachePath}`);
 
   const exePath: string = path.join(cachePath, osPlat == 'win32' ? 'goreleaser.exe' : 'goreleaser');
@@ -46,9 +47,9 @@ export async function getNotionBlog(version: string): Promise<string> {
   return exePath;
 }
 
-const getFilename = (): string => {
+const getFilename = (versionWithoutV: string): string => {
   const platform: string = osPlat == 'win32' ? 'Windows' : osPlat == 'darwin' ? 'Darwin' : 'Linux';
   const arch: string = osArch == 'x64' ? 'x86_64' : 'i386';
   const ext: string = osPlat == 'win32' ? 'zip' : 'tar.gz';
-  return util.format('NotionBlog_%s_%s.%s', platform, arch, ext);
+  return util.format('NotionBlog_%s_%s_%s.%s', versionWithoutV, platform, arch, ext);
 };
