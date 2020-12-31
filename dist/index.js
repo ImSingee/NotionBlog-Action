@@ -136,7 +136,7 @@ function getNotionBlog(version) {
         core.debug(`Extracted to ${extPath}`);
         const cachePath = yield tc.cacheDir(extPath, 'notion-blog-action', versionWithoutV);
         core.debug(`Cached to ${cachePath}`);
-        const exePath = path.join(cachePath, osPlat == 'win32' ? 'goreleaser.exe' : 'goreleaser');
+        const exePath = path.join(cachePath, osPlat == 'win32' ? 'NotionBlog.exe' : 'NotionBlog');
         core.debug(`Exe path is ${exePath}`);
         return exePath;
     });

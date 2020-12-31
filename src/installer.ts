@@ -41,7 +41,7 @@ export async function getNotionBlog(version: string): Promise<string> {
   const cachePath: string = await tc.cacheDir(extPath, 'notion-blog-action', versionWithoutV);
   core.debug(`Cached to ${cachePath}`);
 
-  const exePath: string = path.join(cachePath, osPlat == 'win32' ? 'goreleaser.exe' : 'goreleaser');
+  const exePath: string = path.join(cachePath, osPlat == 'win32' ? 'NotionBlog.exe' : 'NotionBlog');
   core.debug(`Exe path is ${exePath}`);
 
   return exePath;
